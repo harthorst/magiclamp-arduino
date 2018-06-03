@@ -120,30 +120,3 @@ int getRel(int actual, byte dir) {
   
   return ret % NUM_LEDS;
 }
-    
-int getLedPixel() {
-  if (pos.x >= COLUMNS) {
-    pos.x = COLUMNS-pos.x;
-  }
-  
-  boolean isA = pos.x % 2 == 0;
-  int maxY = isA ? COUNT_A : COUNT_B;
-  
-  if (pos.y >= maxY) {
-   pos.y = maxY - pos.y;
-  }
-  
-  int r = 0;
-  
-  //if (isA) {
-  r = COUNT_AB * (pos.x / 2);
-  
-  if (!isA) {
-    r += COUNT_A;
-  }
-  //} else {
-  //  r = 
-  //}
-  
-  return r;
-}
