@@ -15,14 +15,14 @@ int fade[NUM_LEDS];
 void bubbles() {
   long time = millis();
   fadeToBlackBy(leds, NUM_LEDS, 10);
-  //Serial.print("black");
+  Serial.print("black");
   Serial.println(millis()-time);
   
   time = millis();
   for (int i=0; i<NUM_BUBBLES; i++) {
    updateBubble(i);
   }
-  //Serial.print("bubbles");
+  Serial.print("bubbles");
   Serial.println(millis()-time);
   
  
@@ -36,7 +36,7 @@ void bubbles() {
 void updateBubble(int index) {
   Bubble *actual = &bubbleArr[index];  
   if (actual->color.value >= actual->targetValue) {
-    int dir = random(6);
+    int dir = random8(6);
     if (dir == 0) {
       dir = 7;
     } else if (dir == 1) {

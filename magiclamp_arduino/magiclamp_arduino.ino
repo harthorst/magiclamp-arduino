@@ -16,18 +16,16 @@ unsigned long nextUpdate = 0;
 void setup() { 
   //TIMSK0 = 1; // turn off timer0 for lower jitter
        
-       randomSeed(analogRead(0));
        FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
        FastLED.setBrightness( 255 );
        Serial.begin(9600);
-       //delay(2000000);
        
        //initGraph();
-       testGetRel();
+       //testGetRel();
 }
 
 void loop() {
-   //bubbles();
+   bubbles();
    //star();
 }
 

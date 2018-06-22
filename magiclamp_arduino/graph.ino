@@ -39,6 +39,18 @@ void testGetRel() {
     leds[myActual] = CRGB::Red;
   }
   
+  myActual = actual;
+  for (int i=0; i<5; i++) {
+    myActual = getRel(myActual, 2);
+    leds[myActual] = CRGB::Yellow;
+  }
+  
+  myActual = actual;
+  for (int i=0; i<5; i++) {
+    myActual = getRel(myActual, 6);
+    leds[myActual] = CRGB::Yellow;
+  }
+  
   FastLED.show();
 }
 
@@ -64,11 +76,11 @@ void initGraph() {
   }
 }
 
-int _getRel(int actual, byte dir) {
- return REL_POS[actual][dir];
+int getRel(int actual, byte dir) {
+ return pgm_read_word(&REL_POS[actual][dir]);
 }
 
-int getRel(int actual, byte dir) {
+int _getRel(int actual, byte dir) {
   boolean isA = true;
   int remainder = actual;
   while (true) {
@@ -134,6 +146,10 @@ int getRel(int actual, byte dir) {
     } else {
       ret = actual-COUNT_A+COUNT_B-(2*remainder)-1;
     }
+  } else if (dir==2) {
+    ret = actual + COUNT_A + COUNT_B;
+  } else if (dir==6) {
+    ret = actual - (COUNT_A + COUNT_B);
   }
   
   if (ret<0) {
