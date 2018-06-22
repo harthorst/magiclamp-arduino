@@ -38,10 +38,37 @@ void testGetRel() {
     myActual = getRel(myActual, 7);
     leds[myActual] = CRGB::Red;
   }
+  
+  FastLED.show();
+}
+
+
+//int relPos[NUM_LEDS][4] = {0};
+
+void initGraph() {
+  delay(2000);
+  Serial.println(F("-"));
+  Serial.println(F("-"));
+  for (int i=0; i<NUM_LEDS; i++) {
+    if (i!=0) {
+      Serial.print(",");
+    }
+    Serial.print("{");
+    for (byte k=0; k<8; k++) {
+      if (k!=0) {
+        Serial.print(",");
+      }
+      Serial.print(_getRel(i, k));
+    }
+    Serial.println("}");
+  }
+}
+
+int _getRel(int actual, byte dir) {
+ return REL_POS[actual][dir];
 }
 
 int getRel(int actual, byte dir) {
-  //boolean cont = true;
   boolean isA = true;
   int remainder = actual;
   while (true) {
@@ -68,10 +95,6 @@ int getRel(int actual, byte dir) {
      actual = actual - COUNT_A;
     }
   }
-  
-  Serial.print(remainder);
-  Serial.print("-");
-  Serial.println(isA);
   
   int ret = -1;
   
@@ -116,7 +139,7 @@ int getRel(int actual, byte dir) {
   if (ret<0) {
     ret = (NUM_LEDS) + ret;
   }
-  Serial.println(ret);
   
   return ret % NUM_LEDS;
 }
+
