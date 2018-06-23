@@ -25,10 +25,6 @@ void bubbles() {
   Serial.print("bubbles");
   Serial.println(millis()-time);
   
- 
-  
-    
-  
   FastLED.show();
   
 }

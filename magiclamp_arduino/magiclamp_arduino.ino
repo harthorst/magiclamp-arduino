@@ -25,7 +25,8 @@ void setup() {
 }
 
 void loop() {
-   bubbles();
+   //bubbles();
+   rainbow();
    //star();
 }
 

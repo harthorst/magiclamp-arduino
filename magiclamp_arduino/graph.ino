@@ -1,4 +1,5 @@
 
+#ifdef xxx
 void testGetRel() {
   int actual = 11;
   
@@ -53,6 +54,7 @@ void testGetRel() {
   
   FastLED.show();
 }
+#endif
 
 
 //int relPos[NUM_LEDS][4] = {0};
