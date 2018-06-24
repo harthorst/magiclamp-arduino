@@ -1,3 +1,19 @@
+#ifndef Const_DEF
+#define Const_DEF
+
+#include <FastLED.h>
+#include "Arduino.h"
+
+
+#define NUM_LEDS 261
+#define DATA_PIN 6
+#define COLUMNS 18
+#define COUNT_A 15
+#define COUNT_B 14
+#define COUNT_AB 29
+
+extern CRGB leds[NUM_LEDS];
+
 const int REL_POS[NUM_LEDS][8] PROGMEM = {
 {13,15,29,28,1,260,232,247}
 
@@ -522,3 +538,4 @@ const int REL_POS[NUM_LEDS][8] PROGMEM = {
 ,{0,0,28,1,259,233,231,232}
 };
 
+#endif

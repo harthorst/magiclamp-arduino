@@ -1,6 +1,15 @@
+#include "Graph.h"
+#include "RainbowEffect.h"
+#include "Const.h"
+#include "Arduino.h"
+#include <FastLED.h>
 
+RainbowEffect::RainbowEffect() {
+	FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+	FastLED.setBrightness( 255 );
+}
 
-void rainbow() {
+void RainbowEffect::update() {
   int startHue = (millis() / 100) % 255;
   int hueDelta = 5;
   for (int i=0; i<COLUMNS / 2; i++) {
@@ -9,3 +18,4 @@ void rainbow() {
   }
   FastLED.show();
 }
+
