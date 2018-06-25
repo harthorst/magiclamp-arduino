@@ -16,7 +16,7 @@ unsigned long nextUpdate = 0;
 
 byte bubbleDir[] = {7, 1, 0, 0, 0, 0};
 byte ffDir[] = {0, 1, 2, 3, 4, 5, 6, 7};
-//BubbleEffect bubbles(10, 50, bubbleDir, 6);
+BubbleEffect bubbles(10, 50, bubbleDir, 6);
 BubbleEffect fireflies(1, 5, ffDir, 8);
 RainbowEffect rainbow;
 

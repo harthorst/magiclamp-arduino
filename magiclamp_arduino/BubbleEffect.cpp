@@ -39,6 +39,8 @@ BubbleEffect::BubbleEffect(int minSpeed, int maxSpeed, byte directions[], byte d
 void Effect::init() {
 }
 
+void Effect::update() {}
+
 void BubbleEffect::update() {
   long time = millis();
   fadeToBlackBy(leds, NUM_LEDS, 10);
