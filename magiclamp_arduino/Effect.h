@@ -10,7 +10,8 @@
 
 class Effect {
 public:
-	virtual void init();
+	virtual ~Effect() {}
+	virtual void init() = 0;
 	virtual void update();
 };
 

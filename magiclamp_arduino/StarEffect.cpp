@@ -1,6 +1,14 @@
+#include "Graph.h"
+#include "StarEffect.h"
+#include "Const.h"
+#include "Arduino.h"
+#include <FastLED.h>
 
-#ifdef star
-void star() {
+StarEffect::StarEffect(CRGB *leds) {
+	_leds = leds;
+}
+
+void StarEffect::update() {
  if (nextUpdate < millis()) {
     leds[random(NUM_LEDS-1)] = CRGB::White;
     nextUpdate = millis() + random(1000);
@@ -12,4 +20,6 @@ void star() {
   
   FastLED.show();  
 }
-#endif
+
+void StarEffect::init() {}
+

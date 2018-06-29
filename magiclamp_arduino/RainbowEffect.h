@@ -9,12 +9,15 @@
 #define RAINBOWEFFECT_H_
 
 #include "Effect.h"
+#include <FastLED.h>
 
-class RainbowEffect : public Effect {
+class RainbowEffect: public Effect {
 public:
-	RainbowEffect();
-	void update();
+	RainbowEffect(CRGB *leds);
+	virtual void update();
+	virtual void init();
+private:
+	CRGB *_leds;
 };
-
 
 #endif /* RAINBOWEFFECT_H_ */

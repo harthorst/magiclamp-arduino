@@ -1,77 +1,90 @@
+#ifndef BUBBLEEFFECT_CPP
+#define BUBBLEEFFECT_CPP
+
 #include "Graph.h"
-#include "BubbleEffect.h"
+//#include "BubbleEffect.h"
 #include "Const.h"
 #include "Arduino.h"
+#include "Effect.h"
 #include <FastLED.h>
 
-Graph graph;
 #define NUM_BUBBLES 5
 
-CRGB leds[NUM_LEDS];
+class BubbleEffect: public Effect {
+private:
+	Graph graph;
 
-struct Bubble {
- int pixel = random(NUM_LEDS-1);
- int targetValue = random(50, 255);
- int speed;
- CHSV color = CHSV(random(255), 255, 0);
-};
+	CRGB *leds;
 
+	struct Bubble {
+		int pixel = random(NUM_LEDS - 1);
+		int targetValue = random(50, 255);
+		int speed;
+		CHSV color = CHSV(random(255), 255, 0);
+	};
 
-Bubble bubbleArr[NUM_BUBBLES];
-int fade[NUM_LEDS];
-byte *_directions;
-byte _directionsLength;
+	Bubble bubbleArr[NUM_BUBBLES];
+	byte *_directions;
+	byte _directionsLength;
 
-BubbleEffect::BubbleEffect(int minSpeed, int maxSpeed, byte directions[], byte directionsLength) {
-	_directions = directions;
-	_directionsLength = directionsLength;
+	void updateBubble(int index) {
+		Bubble *actual = &bubbleArr[index];
+		if (actual->color.value >= actual->targetValue) {
+			int dir = random8(_directionsLength);
+			dir = _directions[dir];
+			actual->pixel = graph.getRel(actual->pixel, dir);
+			actual->color.value = 0;
+		} else {
+			actual->color.value = min(
+					actual->color.value
+							+ ((actual->targetValue * actual->speed) / 100),
+					actual->targetValue);
+		}
 
-	FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
-	FastLED.setBrightness( 255 );
-
-	for (int i=0; i<NUM_BUBBLES; i++) {
-		bubbleArr[i] = Bubble();
-		bubbleArr[i].speed = random(minSpeed, maxSpeed);
-		Serial.println(bubbleArr[i].speed);
+		leds[actual->pixel] = actual->color;
 	}
-}
 
-void Effect::init() {
-}
+public:
+	BubbleEffect(CRGB *_leds, int minSpeed, int maxSpeed, byte directions[],
+			byte directionsLength) {
+		_directions = directions;
+		_directionsLength = directionsLength;
+		leds = _leds;
 
-void Effect::update() {}
+#ifdef debug
+		minSpeed *=2;
+		maxSpeed *=2;
+#endif
 
-void BubbleEffect::update() {
-  long time = millis();
-  fadeToBlackBy(leds, NUM_LEDS, 10);
-  Serial.print("black");
-  Serial.println(millis()-time);
-  
-  time = millis();
-  for (int i=0; i<NUM_BUBBLES; i++) {
-   this->updateBubble(i);
-  }
-  Serial.print("bubbles");
-  Serial.println(millis()-time);
-  
-  FastLED.show();
-  
-}
+		for (int i = 0; i < NUM_BUBBLES; i++) {
+			bubbleArr[i] = Bubble();
+			bubbleArr[i].speed = random(minSpeed, maxSpeed);
+		}
+	}
 
-void BubbleEffect::updateBubble(int index) {
-  Bubble *actual = &bubbleArr[index];  
-  if (actual->color.value >= actual->targetValue) {
-	//byte directions[_directionsLength] = _directions;
-    int dir = random8(_directionsLength);
-    dir = _directions[dir];
-    Serial.println(dir);
-    fade[actual->pixel] = actual->speed;
-    actual->pixel = graph.getRel(actual->pixel, dir);
-    actual->color.value = 0;
-  } else {
-    actual->color.value = min(actual->color.value + ((actual->targetValue * actual->speed) / 50), actual->targetValue);
-  }
-       
-  leds[actual->pixel] = actual->color;
-}
+	void init() {
+	}
+
+	void update() {
+		long time = millis();
+		fadeToBlackBy(leds, NUM_LEDS, 10);
+#ifdef debug
+		Serial.print("black");
+		Serial.println(millis() - time);
+#endif
+
+		time = millis();
+		for (int i = 0; i < NUM_BUBBLES; i++) {
+			this->updateBubble(i);
+		}
+#ifdef debug
+		Serial.print("bubbles");
+		Serial.println(millis() - time);
+#endif
+
+		FastLED.show();
+
+	}
+};
+#endif
 

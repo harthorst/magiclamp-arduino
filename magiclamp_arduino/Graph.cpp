@@ -7,6 +7,14 @@ int Graph::getRel(int actual, byte dir) {
  return pgm_read_word(&REL_POS[actual][dir]);
 }
 
+int Graph::getX(int actual) {
+ return pgm_read_word(&XY[actual][0]);
+}
+
+int Graph::getY(int actual) {
+ return pgm_read_word(&XY[actual][1]);
+}
+
 #ifdef xxx
 void testGetRel() {
   int actual = 11;

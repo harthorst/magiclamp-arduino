@@ -5,7 +5,7 @@
  *      Author: tf
  */
 
-#ifndef BUBBLEEFFECT_H_
+#ifdef BUBBLEEFFECT_H_
 #define BUBBLEEFFECT_H_
 
 #include "Effect.h"
