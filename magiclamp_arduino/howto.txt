@@ -1,0 +1,11 @@
+avrdude -patmega328p -catmelice_isp -Pusb -v -U hfuse:w:0x9E:m
+
+# disable DWEN
+avrdude -patmega328p -catmelice_dw -Pusb -v -U hfuse:w:0xDE:m
+./src/avarice --edbg --debugwire  --ignore-intr  :4242
+
+
+vi /home/tf/bin/sloeber//arduinoPlugin/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf
+
+# fuses lesen	
+avrdude -catmelice_isp -v -patmega168p -Pusb -n 

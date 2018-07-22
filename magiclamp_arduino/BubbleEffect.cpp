@@ -2,7 +2,7 @@
 #define BUBBLEEFFECT_CPP
 
 #include "Graph.h"
-//#include "BubbleEffect.h"
+#include "BubbleEffect.h"
 #include "Const.h"
 #include "Arduino.h"
 #include "Effect.h"

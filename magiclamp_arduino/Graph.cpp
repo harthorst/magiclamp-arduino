@@ -15,6 +15,14 @@ int Graph::getY(int actual) {
  return pgm_read_word(&XY[actual][1]);
 }
 
+int Graph::getBottomLed(int actual) {
+ return pgm_read_word(&BOTTOM_LEDS[actual]);
+}
+
+int Graph::getTopLed(int actual) {
+ return pgm_read_word(&TOP_LEDS[actual]);
+}
+
 #ifdef xxx
 void testGetRel() {
   int actual = 11;
